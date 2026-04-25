@@ -1,0 +1,39 @@
+// Last updated: 4/25/2026, 8:25:15 AM
+1class Solution {
+2    public boolean isBipartite(int[][] graph) {
+3        
+4        int n = graph.length;
+5        int[] color = new int[n];
+6
+7        Arrays.fill( color, -1 );
+8
+9        for( int i = 0; i < n; i++ ){
+10            if( color[i] == -1 ){
+11                if(!dfs( i, 0, color, graph )){
+12                    return false;
+13                }
+14            }
+15        }
+16        return true;
+17    }
+18
+19    public boolean dfs( int i, int curr, int[] color, int[][] graph ){
+20
+21        color[i] = curr;
+22        
+23        for( int nei : graph[i] ){
+24
+25            if( color[nei] == -1 ){
+26                if(!dfs( nei, 1-curr, color, graph )){
+27                    return false;
+28                }
+29            }
+30            else if ( color[nei] == curr ){
+31                return false;
+32            }
+33
+34        }
+35
+36        return true;
+37    }
+38}
